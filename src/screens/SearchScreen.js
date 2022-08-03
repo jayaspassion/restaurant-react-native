@@ -1,13 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import SearchBar from "../components/SearchBar";
-import yelp from "../api/yelp";
+import ResultsList from "../components/ResultsList";
+
 import useResults from "../hooks/useResults";
 
 const SearchScreen = () => {
   const [term, setTerm] = useState("");
   const [searchApi, results, errorMessage] = useResults();
+
+  const filterResultsByPrice = (price) => {
+    return results.filter((result) => {
+      return result.price === price;
+    });
+  };
 
   return (
     <View>
@@ -20,6 +27,9 @@ const SearchScreen = () => {
         <Text style={styles.textStyle}>{errorMessage}</Text>
       ) : null}
       <Text style={styles.textStyle}>We have found {results.length}</Text>
+      <ResultsList results={filterResultsByPrice("$")} title="Cost Effective" />
+      <ResultsList results={filterResultsByPrice("$$")} title="Bit Pricier" />
+      <ResultsList results={filterResultsByPrice("$$$")} title="Big Spender" />
     </View>
   );
 };
