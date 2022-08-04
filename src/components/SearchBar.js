@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     borderRadius: 10,
     flexDirection: "row",
+    marginBottom: 10
   },
   inputStyle: {
     fontSize: 18,
